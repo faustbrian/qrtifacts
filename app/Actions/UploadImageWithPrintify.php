@@ -15,7 +15,7 @@ final class UploadImageWithPrintify
     {
         return Http::withToken(config('services.printify.token'))
             ->post('https://api.printify.com/v1/uploads/images.json', [
-                'file_name' => $path,
+                'file_name' => basename($path),
                 'contents'  => base64_encode(file_get_contents($path)),
             ])
             ->json('id');

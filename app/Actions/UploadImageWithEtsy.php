@@ -13,10 +13,11 @@ final class UploadImageWithEtsy
 {
     public static function execute(string $listingId, string $path): string
     {
-        return Http::withToken(config('services.printify.token'))
+        return Http::asForm()
+            ->withHeaders(['x-api-key' => config('services.etsy.key')])
+            ->withToken(config('services.etsy.token'))
             ->post('https://api.etsy.com/v3/application/shops/'.config('services.etsy.store')."/listings/$listingId/files", [
-                'file_name' => $path,
-                'contents'  => base64_encode(file_get_contents($path)),
+                'file' => base64_encode(file_get_contents($path)),
             ])
             ->json('id');
     }

@@ -15,8 +15,9 @@ final class CreateProductWithEtsy
 {
     public static function execute(array $data): array
     {
-        return Http::withHeaders(['x-api-key' => config('services.etsy.token')])
-            ->asForm()
+        return Http::asForm()
+            ->withHeaders(['x-api-key' => config('services.etsy.key')])
+            ->withToken(config('services.etsy.token'))
             ->post('https://api.etsy.com/v3/application/shops/'.config('services.etsy.store').'/listings', $data)
             ->json();
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Actions\CreateProductWithEtsy;
 use App\Actions\CreateProductWithPrintify;
+use App\Actions\UploadImageWithEtsy;
 use App\Actions\UploadImageWithPrintify;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // return UploadImageWithEtsy::execute(resource_path('parts/armor/armor_1.png'));
+
     return CreateProductWithEtsy::execute([
         'quantity'    => '5',
         'title'       => 'Vintage Duncan Toys Butterfly Yo-Yo, Red',
