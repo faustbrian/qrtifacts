@@ -16,6 +16,10 @@ return [
     |
     */
 
+    'etsy' => [
+        'token' => env('ETSY_TOKEN'),
+    ],
+
     'mailgun' => [
         'domain'   => env('MAILGUN_DOMAIN'),
         'secret'   => env('MAILGUN_SECRET'),
@@ -25,6 +29,10 @@ return [
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
+    ],
+
+    'printify' => [
+        'token' => env('PRINTIFY_TOKEN'),
     ],
 
     'ses' => [
