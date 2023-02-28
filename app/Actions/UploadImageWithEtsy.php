@@ -19,6 +19,6 @@ final class UploadImageWithEtsy
             ->post('https://api.etsy.com/v3/application/shops/'.config('services.etsy.store')."/listings/$listingId/files", [
                 'file' => base64_encode(file_get_contents($path)),
             ])
-            ->json('id');
+            ->json();
     }
 }
