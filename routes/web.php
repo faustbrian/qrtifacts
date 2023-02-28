@@ -7,6 +7,7 @@ use App\Actions\CreateProductWithPrintify;
 use App\Actions\UploadImageWithEtsy;
 use App\Actions\UploadImageWithPrintify;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,4 +96,12 @@ Route::get('/', function () {
     //         ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($second))
     //         ->save(resource_path("backgrounds/frame-{$second}.png"));
     // }
+});
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('etsy')->scopes(['listings_w'])->redirect();
+});
+
+Route::get('/auth/callback', function () {
+    return Socialite::driver('etsy')->user();
 });

@@ -17,8 +17,11 @@ return [
     */
 
     'etsy' => [
-        'store' => env('ETSY_STORE'),
-        'token' => env('ETSY_TOKEN'),
+        'client_id'     => env('ETSY_CLIENT_ID'),
+        'client_secret' => env('ETSY_CLIENT_SECRET'),
+        'redirect'      => env('ETSY_REDIRECT_URI'),
+        'store'         => env('ETSY_STORE'),
+        'token'         => env('ETSY_TOKEN'),
     ],
 
     'mailgun' => [
