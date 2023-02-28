@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Http;
  */
 final class UploadImageWithPrintify
 {
-    public static function execute(string $fileName, string $contents): array
+    public static function execute(string $path): array
     {
         return Http::withToken(config('services.printify.token'))
             ->post('https://api.printify.com/v1/uploads/images.json', [
-                'file_name' => $fileName,
-                'contents'  => $contents,
+                'file_name' => $path,
+                'contents'  => file_get_contents(base64_encode($path)),
             ])
             ->json();
     }
