@@ -17,6 +17,7 @@ return [
     */
 
     'etsy' => [
+        'store' => env('ETSY_STORE'),
         'token' => env('ETSY_TOKEN'),
     ],
 
@@ -32,6 +33,7 @@ return [
     ],
 
     'printify' => [
+        'store' => env('PRINTIFY_STORE'),
         'token' => env('PRINTIFY_TOKEN'),
     ],
 
