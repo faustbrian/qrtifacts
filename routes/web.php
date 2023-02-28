@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Actions\CreateProductWithEtsy;
 use App\Actions\CreateProductWithPrintify;
 use App\Actions\UploadImageWithPrintify;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return CreateProductWithEtsy::execute([
+        'quantity'    => '5',
+        'title'       => 'Vintage Duncan Toys Butterfly Yo-Yo, Red',
+        'description' => 'Vintage Duncan Yo-Yo from 1976 with string, steel axle, and plastic body.',
+        'price'       => '1000',
+        'who_made'    => 'someone_else',
+        'when_made'   => '1970s',
+        'taxonomy_id' => '1',
+        'image_ids'   => '378848,238298,030076',
+    ]);
+
     return CreateProductWithPrintify::execute([
         'title'             => 'Product',
         'description'       => 'Good product',
