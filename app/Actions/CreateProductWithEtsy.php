@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Http;
  */
 final class CreateProductWithEtsy
 {
-    public function execute(array $data): void
+    public static function execute(array $data): void
     {
         Http::withHeaders(['x-api-key' => config('services.etsy.token')])
             ->post('https://api.etsy.com/v3/application/shops/'.config('services.etsy.store').'/listings', $data);

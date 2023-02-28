@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Http;
  */
 final class CreateProductWithPrintify
 {
-    public function execute(array $data): void
+    public static function execute(array $data): void
     {
         Http::withToken(config('services.printify.token'))
-            ->post('https://api.printify.com//v1/shops/'.config('services.printify.store').'/products.json', $data);
+            ->post('https://api.printify.com/v1/shops/'.config('services.printify.store').'/products.json', $data);
     }
 }

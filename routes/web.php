@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Actions\CreateProductWithPrintify;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,18 +17,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $config = [
-        'ffmpeg.binaries'  => base_path('bin/ffmpeg'),
-        'ffprobe.binaries' => base_path('bin/ffprobe'),
-    ];
+    dd(CreateProductWithPrintify::execute([]));
 
-    $videoName = '3';
-    $video     = FFMpeg\FFMpeg::create($config)->open(resource_path("videos/{$videoName}.mp4"));
-    $seconds   = (float) FFMpeg\FFProbe::create($config)->format(resource_path("videos/{$videoName}.mp4"))->get('duration');
+    // $config = [
+    //     'ffmpeg.binaries'  => base_path('bin/ffmpeg'),
+    //     'ffprobe.binaries' => base_path('bin/ffprobe'),
+    // ];
 
-    foreach (range(0, $seconds) as $second) {
-        $video
-            ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($second))
-            ->save(resource_path("backgrounds/frame-{$second}.png"));
-    }
+    // $videoName = '3';
+    // $video     = FFMpeg\FFMpeg::create($config)->open(resource_path("videos/{$videoName}.mp4"));
+    // $seconds   = (float) FFMpeg\FFProbe::create($config)->format(resource_path("videos/{$videoName}.mp4"))->get('duration');
+
+    // foreach (range(0, $seconds) as $second) {
+    //     $video
+    //         ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($second))
+    //         ->save(resource_path("backgrounds/frame-{$second}.png"));
+    // }
 });
