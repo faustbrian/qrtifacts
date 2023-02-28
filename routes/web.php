@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Actions\CreateProductWithPrintify;
+use App\Actions\UploadImageWithPrintify;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,7 +53,7 @@ Route::get('/', function () {
                         'position' => 'front',
                         'images'   => [
                             [
-                                'id'    => '5d15ca551163cde90d7b2203',
+                                'id'    => UploadImageWithPrintify::execute(resource_path('parts/armor/armor_1.png')),
                                 'x'     => 0.5,
                                 'y'     => 0.5,
                                 'scale' => 1,
