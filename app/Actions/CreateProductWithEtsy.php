@@ -14,7 +14,7 @@ final class CreateProductWithEtsy
 {
     public function execute(array $data): void
     {
-        Http::withToken(config('services.etsy.token'))
+        Http::withHeaders(['x-api-key' => config('services.etsy.token')])
             ->post('https://api.printify.com//v1/shops/{shop_id}/products.json');
     }
 }
