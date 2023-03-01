@@ -6,8 +6,11 @@ use App\Actions\CreateProductWithEtsy;
 use App\Actions\CreateProductWithPrintify;
 use App\Actions\UploadImageWithEtsy;
 use App\Actions\UploadImageWithPrintify;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use PreemStudio\CharacterBuilder\Character;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,21 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::get('/', function () {
+    // Arr::random(json_decode(File::get(resource_path('assets/gradients.json')), true))['colors']
+
+    $avatar = new Character('identifier');
+    $avatar->withColors(Arr::random(json_decode(File::get(resource_path('parts/gradients.json')), true))['colors']);
+    $avatar->withGradientBackground();
+    // $avatar->withDominantColorBackground();
+    // $avatar->withGreyscale();
+    // $avatar->withFlip();
+    // $avatar->withGradientBackground();
+    // $avatar->withVerticalGradient();
+    $avatar->withQrCode();
+
+    return $avatar->create()->response();
+    // return (string) $avatar->create()->encode('data-url', 100);
+
     // return UploadImageWithEtsy::execute(resource_path('parts/armor/armor_1.png'));
 
     return CreateProductWithEtsy::execute([
