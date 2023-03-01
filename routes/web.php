@@ -2,22 +2,24 @@
 
 declare(strict_types=1);
 
+use App\Actions\CreateProductWithEtsy;
+use App\Actions\CreateProductWithPrintify;
+use App\Actions\UploadImageWithEtsy;
+use App\Actions\UploadImageWithPrintify;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 use Endroid\QrCode\QrCode;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Endroid\QrCode\Color\Color;
-use App\Actions\UploadImageWithEtsy;
 use Illuminate\Support\Facades\File;
-use Endroid\QrCode\Encoding\Encoding;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-use App\Actions\CreateProductWithEtsy;
-use App\Actions\UploadImageWithPrintify;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-use App\Actions\CreateProductWithPrintify;
 use PreemStudio\CharacterBuilder\Character;
-use PreemStudio\CharacterBuilder\Manipulators\QrCodeManipulator;
-use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 use PreemStudio\CharacterBuilder\Manipulators\GradientBackgroundManipulator;
+use PreemStudio\CharacterBuilder\Manipulators\QrCodeManipulator;
+use PreemStudio\CharacterBuilder\Manipulators\TransparentBackgroundManipulator;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,36 +37,39 @@ Route::get('/', function () {
     // 4724x3543
 
     $avatar = new Character(Str::random());
-    $avatar->withBackgroundBeforeManipulator(new GradientBackgroundManipulator(Arr::random(json_decode(File::get(resource_path('parts/gradients.json')), true))['colors'], 'horizontal'));
-    $avatar->withBackgroundAfterManipulator(new QrCodeManipulator(
-        QrCode::create('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-            ->setSize(82)
-            ->setMargin(4)
-            ->setEncoding(new Encoding('UTF-8'))
-            ->setErrorCorrectionLevel(new ErrorCorrectionLevelHigh)
-            ->setForegroundColor(new Color(0, 0, 0, 0))
-            ->setBackgroundColor(new Color(255, 255, 255))
-    ));
+    $avatar->withBackgroundBeforeManipulator(new TransparentBackgroundManipulator);
+    // $avatar->withBackgroundBeforeManipulator(new GradientBackgroundManipulator(Arr::random(json_decode(File::get(resource_path('parts/gradients.json')), true))['colors'], 'horizontal'));
+    // $avatar->withBackgroundAfterManipulator(new QrCodeManipulator(
+    //     QrCode::create('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+    //         ->setSize(82)
+    //         ->setMargin(4)
+    //         ->setEncoding(new Encoding('UTF-8'))
+    //         ->setErrorCorrectionLevel(new ErrorCorrectionLevelHigh)
+    //         ->setForegroundColor(new Color(0, 0, 0, 0))
+    //         ->setBackgroundColor(new Color(255, 255, 255))
+    // ));
 
-    return $avatar
-        ->create()
-        // ->resize(5906, 4724)
-        // ->sharpen(100)
-        ->response();
+    // return $avatar->create()->resize(5906, 4724)->response();
     // return (string) $avatar->create()->encode('data-url', 100);
 
     // return UploadImageWithEtsy::execute(resource_path('parts/armor/armor_1.png'));
 
-    return CreateProductWithEtsy::execute([
-        'quantity'    => '5',
-        'title'       => 'Vintage Duncan Toys Butterfly Yo-Yo, Red',
-        'description' => 'Vintage Duncan Yo-Yo from 1976 with string, steel axle, and plastic body.',
-        'price'       => '1000',
-        'who_made'    => 'someone_else',
-        'when_made'   => '1970s',
-        'taxonomy_id' => '1',
-        'image_ids'   => '378848,238298,030076',
-    ]);
+    // return CreateProductWithEtsy::execute([
+    //     'quantity'    => '5',
+    //     'title'       => 'Vintage Duncan Toys Butterfly Yo-Yo, Red',
+    //     'description' => 'Vintage Duncan Yo-Yo from 1976 with string, steel axle, and plastic body.',
+    //     'price'       => '1000',
+    //     'who_made'    => 'someone_else',
+    //     'when_made'   => '1970s',
+    //     'taxonomy_id' => '1',
+    //     'image_ids'   => '378848,238298,030076',
+    // ]);
+
+    dd(json_decode(file_get_contents(resource_path('product.json'))));
+
+    return Http::withToken(config('services.printify.token'))
+        ->get('https://api.printify.com/v1/shops/'.config('services.printify.store').'/products.json')
+        ->json();
 
     return CreateProductWithPrintify::execute([
         'title'             => 'Product',
