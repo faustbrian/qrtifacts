@@ -38,8 +38,8 @@ Route::get('/', function () {
     $avatar->withBackgroundBeforeManipulator(new GradientBackgroundManipulator(Arr::random(json_decode(File::get(resource_path('parts/gradients.json')), true))['colors'], 'horizontal'));
     $avatar->withBackgroundAfterManipulator(new QrCodeManipulator(
         QrCode::create('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-            ->setSize(96)
-            ->setMargin(0)
+            ->setSize(82)
+            ->setMargin(4)
             ->setEncoding(new Encoding('UTF-8'))
             ->setErrorCorrectionLevel(new ErrorCorrectionLevelHigh)
             ->setForegroundColor(new Color(0, 0, 0, 0))
