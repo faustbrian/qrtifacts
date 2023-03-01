@@ -72,10 +72,10 @@ Route::get('/', function () {
     $template = json_decode(file_get_contents(resource_path('product.json')), true);
 
     return CreateProductWithPrintify::execute([
-        // title
-        // description
         ...$template,
-        'print_areas'=> [
+        'title'       => Str::random(),
+        'description' => Str::random(),
+        'print_areas' => [
             [
                 'variant_ids'  => $template['print_areas'][0]['variant_ids'],
                 'placeholders' => [
@@ -83,31 +83,24 @@ Route::get('/', function () {
                         'position' => 'front',
                         'images'   => [
                             [
-                                'id'    => UploadImageWithPrintify::execute(resource_path('parts/armor/armor_1.png')),
-                                'x'     => 0.5,
-                                'y'     => 0.5,
+                                'id'    => UploadImageWithPrintify::execute(resource_path('demo/background.png')),
+                                'x'     => 0.49999999999999994,
+                                'y'     => 0.49972640796794165,
                                 'scale' => 1,
                                 'angle' => 0,
                             ],
                             [
-                                'id'    => UploadImageWithPrintify::execute(resource_path('parts/armor/armor_1.png')),
+                                'id'    => UploadImageWithPrintify::execute(resource_path('demo/character.png')),
                                 'x'     => 0.5,
-                                'y'     => 0.5,
-                                'scale' => 1,
+                                'y'     => 0.5000000000000001,
+                                'scale' => 0.8500702666666666,
                                 'angle' => 0,
                             ],
                             [
-                                'id'    => UploadImageWithPrintify::execute(resource_path('parts/armor/armor_1.png')),
-                                'x'     => 0.5,
-                                'y'     => 0.5,
-                                'scale' => 1,
-                                'angle' => 0,
-                            ],
-                            [
-                                'id'    => UploadImageWithPrintify::execute(resource_path('parts/armor/armor_1.png')),
-                                'x'     => 0.5,
-                                'y'     => 0.5,
-                                'scale' => 1,
+                                'id'    => UploadImageWithPrintify::execute(resource_path('demo/qrcode.png')),
+                                'x'     => 0.94525,
+                                'y'     => 0.9290625,
+                                'scale' => 0.0305,
                                 'angle' => 0,
                             ],
                         ],
