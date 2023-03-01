@@ -72,6 +72,8 @@ Route::get('/', function () {
     $template = json_decode(file_get_contents(resource_path('product.json')), true);
 
     return CreateProductWithPrintify::execute([
+        // title
+        // description
         ...$template,
         'print_areas'=> [
             [
