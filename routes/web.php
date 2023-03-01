@@ -6,11 +6,17 @@ use App\Actions\CreateProductWithEtsy;
 use App\Actions\CreateProductWithPrintify;
 use App\Actions\UploadImageWithEtsy;
 use App\Actions\UploadImageWithPrintify;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\QrCode;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use PreemStudio\CharacterBuilder\Character;
+use PreemStudio\CharacterBuilder\Manipulators\GradientBackgroundManipulator;
+use PreemStudio\CharacterBuilder\Manipulators\QrCodeManipulator;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,14 +30,26 @@ use PreemStudio\CharacterBuilder\Character;
 */
 
 Route::get('/', function () {
-    // Arr::random(json_decode(File::get(resource_path('assets/gradients.json')), true))['colors']
+    // 5906x4724
+    // 4724x3543
 
     $avatar = new Character('identifier');
-    $avatar->withColors(Arr::random(json_decode(File::get(resource_path('parts/gradients.json')), true))['colors']);
-    $avatar->withGradientBackground();
-    $avatar->withQrCode();
+    $avatar->withBackgroundBeforeManipulator(new GradientBackgroundManipulator(Arr::random(json_decode(File::get(resource_path('parts/gradients.json')), true))['colors'], 'horizontal'));
+    $avatar->withBackgroundAfterManipulator(new QrCodeManipulator(
+        QrCode::create('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+            ->setSize(96)
+            ->setMargin(0)
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelHigh)
+            ->setForegroundColor(new Color(0, 0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255))
+    ));
 
-    return $avatar->create()->response();
+    return $avatar
+        ->create()
+        // ->resize(5906, 4724)
+        // ->sharpen(100)
+        ->response();
     // return (string) $avatar->create()->encode('data-url', 100);
 
     // return UploadImageWithEtsy::execute(resource_path('parts/armor/armor_1.png'));
