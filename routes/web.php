@@ -29,11 +29,6 @@ Route::get('/', function () {
     $avatar = new Character('identifier');
     $avatar->withColors(Arr::random(json_decode(File::get(resource_path('parts/gradients.json')), true))['colors']);
     $avatar->withGradientBackground();
-    // $avatar->withDominantColorBackground();
-    // $avatar->withGreyscale();
-    // $avatar->withFlip();
-    // $avatar->withGradientBackground();
-    // $avatar->withVerticalGradient();
     $avatar->withQrCode();
 
     return $avatar->create()->response();
