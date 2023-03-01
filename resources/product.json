@@ -70,42 +70,6 @@
     ],
     "images": [
         {
-            "src": "https:\/\/images.printify.com\/mockup\/63fef86ca47206e2a509d956\/96208\/80309\/copy-of-thunderbolt-blaze.jpg",
-            "variant_ids": [
-                96208
-            ],
-            "position": "other",
-            "is_default": false,
-            "is_selected_for_publishing": true
-        },
-        {
-            "src": "https:\/\/images.printify.com\/mockup\/63fef86ca47206e2a509d956\/96208\/80624\/copy-of-thunderbolt-blaze.jpg",
-            "variant_ids": [
-                96208
-            ],
-            "position": "other",
-            "is_default": false,
-            "is_selected_for_publishing": true
-        },
-        {
-            "src": "https:\/\/images.printify.com\/mockup\/63fef86ca47206e2a509d956\/96208\/80994\/copy-of-thunderbolt-blaze.jpg",
-            "variant_ids": [
-                96208
-            ],
-            "position": "other",
-            "is_default": true,
-            "is_selected_for_publishing": true
-        },
-        {
-            "src": "https:\/\/images.printify.com\/mockup\/63fef86ca47206e2a509d956\/96208\/81054\/copy-of-thunderbolt-blaze.jpg",
-            "variant_ids": [
-                96208
-            ],
-            "position": "other",
-            "is_default": false,
-            "is_selected_for_publishing": true
-        },
-        {
             "src": "https:\/\/images.printify.com\/mockup\/63fef86ca47206e2a509d956\/96209\/80310\/copy-of-thunderbolt-blaze.jpg",
             "variant_ids": [
                 96209
@@ -158,66 +122,7 @@
     "print_areas": [
         {
             "variant_ids": [
-                96262,
-                96264,
-                96266,
-                96263,
-                96265,
-                96267,
-                96250,
-                96252,
-                96254,
-                96251,
-                96253,
-                96255,
-                96202,
-                96204,
-                96206,
-                96203,
-                96205,
-                96207,
-                96214,
-                96216,
-                96218,
-                96215,
-                96217,
-                96219,
-                96226,
-                96228,
-                96230,
-                96227,
-                96229,
-                96231,
-                96256,
-                96258,
-                96260,
-                96257,
-                96259,
-                96261,
-                96196,
-                96198,
-                96200,
-                96197,
-                96199,
-                96201,
-                96244,
-                96246,
-                96248,
-                96245,
-                96247,
-                96249,
-                96208,
-                96210,
-                96212,
-                96209,
-                96211,
-                96213,
-                96220,
-                96222,
-                96224,
-                96221,
-                96223,
-                96225
+                96209
             ],
             "placeholders": [
                 {

@@ -65,11 +65,55 @@ Route::get('/', function () {
     //     'image_ids'   => '378848,238298,030076',
     // ]);
 
-    dd(json_decode(file_get_contents(resource_path('product.json'))));
+    // return Http::withToken(config('services.printify.token'))
+    //     ->get('https://api.printify.com/v1/shops/'.config('services.printify.store').'/products.json')
+    //     ->json();
 
-    return Http::withToken(config('services.printify.token'))
-        ->get('https://api.printify.com/v1/shops/'.config('services.printify.store').'/products.json')
-        ->json();
+    $template = json_decode(file_get_contents(resource_path('product.json')), true);
+
+    return CreateProductWithPrintify::execute([
+        ...$template,
+        'print_areas'=> [
+            [
+                'variant_ids'  => $template['print_areas'][0]['variant_ids'],
+                'placeholders' => [
+                    [
+                        'position' => 'front',
+                        'images'   => [
+                            [
+                                'id'    => UploadImageWithPrintify::execute(resource_path('parts/armor/armor_1.png')),
+                                'x'     => 0.5,
+                                'y'     => 0.5,
+                                'scale' => 1,
+                                'angle' => 0,
+                            ],
+                            [
+                                'id'    => UploadImageWithPrintify::execute(resource_path('parts/armor/armor_1.png')),
+                                'x'     => 0.5,
+                                'y'     => 0.5,
+                                'scale' => 1,
+                                'angle' => 0,
+                            ],
+                            [
+                                'id'    => UploadImageWithPrintify::execute(resource_path('parts/armor/armor_1.png')),
+                                'x'     => 0.5,
+                                'y'     => 0.5,
+                                'scale' => 1,
+                                'angle' => 0,
+                            ],
+                            [
+                                'id'    => UploadImageWithPrintify::execute(resource_path('parts/armor/armor_1.png')),
+                                'x'     => 0.5,
+                                'y'     => 0.5,
+                                'scale' => 1,
+                                'angle' => 0,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ]);
 
     return CreateProductWithPrintify::execute([
         'title'             => 'Product',
