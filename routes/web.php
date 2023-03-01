@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-use App\Actions\CreateProductWithEtsy;
-use App\Actions\CreateProductWithPrintify;
-use App\Actions\UploadImageWithEtsy;
-use App\Actions\UploadImageWithPrintify;
-use Endroid\QrCode\Color\Color;
-use Endroid\QrCode\Encoding\Encoding;
-use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 use Endroid\QrCode\QrCode;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Endroid\QrCode\Color\Color;
+use App\Actions\UploadImageWithEtsy;
 use Illuminate\Support\Facades\File;
+use Endroid\QrCode\Encoding\Encoding;
 use Illuminate\Support\Facades\Route;
+use App\Actions\CreateProductWithEtsy;
+use App\Actions\UploadImageWithPrintify;
 use Laravel\Socialite\Facades\Socialite;
+use App\Actions\CreateProductWithPrintify;
 use PreemStudio\CharacterBuilder\Character;
-use PreemStudio\CharacterBuilder\Manipulators\GradientBackgroundManipulator;
 use PreemStudio\CharacterBuilder\Manipulators\QrCodeManipulator;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use PreemStudio\CharacterBuilder\Manipulators\GradientBackgroundManipulator;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ Route::get('/', function () {
     // 5906x4724
     // 4724x3543
 
-    $avatar = new Character('identifier');
+    $avatar = new Character(Str::random());
     $avatar->withBackgroundBeforeManipulator(new GradientBackgroundManipulator(Arr::random(json_decode(File::get(resource_path('parts/gradients.json')), true))['colors'], 'horizontal'));
     $avatar->withBackgroundAfterManipulator(new QrCodeManipulator(
         QrCode::create('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
